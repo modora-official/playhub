@@ -32,27 +32,34 @@
             -webkit-tap-highlight-color: transparent !important;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            min-height: 100vh;
+            /* Menggunakan 100dvh agar presisi di tengah layar HP modern */
+            min-height: 100dvh; 
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow: hidden; /* Mencegah scroll */
+            overflow: hidden; 
+            position: relative;
         }
 
         /* Efek Background Cahaya 3D */
         .bg-glow {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(157,0,255,0.15) 0%, rgba(10,10,14,0) 70%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(157,0,255,0.1) 0%, rgba(10,10,14,0) 60%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
+            pointer-events: none;
         }
 
         .confirmation-card {
@@ -60,8 +67,10 @@
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 40px 30px;
-            width: 100%;
-            max-width: 450px;
+            /* Memastikan ada jarak di kiri-kanan layar HP */
+            width: 90%; 
+            max-width: 420px; 
+            margin: auto; /* Paksa mutlak di tengah */
             text-align: center;
             position: relative;
             z-index: 10;
@@ -75,114 +84,63 @@
         }
 
         /* Logo Area */
-        .logo-area {
-            margin-bottom: 25px;
-        }
-        
+        .logo-area { margin-bottom: 25px; }
         .logo-area h1 {
-            font-size: 28px;
-            font-weight: 700;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: 0.5px;
+            font-size: 28px; font-weight: 700; display: flex;
+            justify-content: center; align-items: center; gap: 10px; letter-spacing: 0.5px;
         }
-        
         .logo-area i { color: var(--accent-purple); font-size: 30px; }
         .logo-play { color: var(--accent-gold); }
         .logo-hub { color: var(--accent-purple); }
 
         .icon-warning {
-            font-size: 65px;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
+            font-size: 65px; color: var(--accent-gold); margin-bottom: 20px;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
         }
 
-        h2 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+        h2 { font-size: 22px; margin-bottom: 12px; color: #fff; }
+        p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 30px; }
 
         /* Tombol Aksi */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
 
         .btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            width: 100%; padding: 14px; border-radius: 10px; font-size: 15px;
+            font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
 
         .btn-accept {
-            background: var(--accent-purple);
-            color: #fff;
-            border: 1px solid rgba(157, 0, 255, 0.5);
-            box-shadow: 0 10px 20px rgba(157, 0, 255, 0.2);
+            background: var(--accent-purple); color: #fff;
+            border: 1px solid rgba(157, 0, 255, 0.5); box-shadow: 0 10px 20px rgba(157, 0, 255, 0.2);
         }
-
         .btn-accept:hover {
-            background: #b033ff;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(157, 0, 255, 0.4);
+            background: #b033ff; transform: translateY(-2px); box-shadow: 0 15px 25px rgba(157, 0, 255, 0.4);
         }
 
         .btn-decline {
-            background: #1a1a24;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
+            background: #1a1a24; color: var(--text-secondary); border: 1px solid var(--border-color);
         }
-
         .btn-decline:hover {
-            background: #232332;
-            color: var(--danger-color);
-            border-color: rgba(255, 59, 59, 0.3);
+            background: #232332; color: var(--danger-color); border-color: rgba(255, 59, 59, 0.3);
         }
 
         /* Halaman Ditolak (Fallback) */
         .denied-screen {
-            display: none;
-            text-align: center;
-            z-index: 20;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--bg-color);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
+            display: none; text-align: center; z-index: 20; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100dvh; background: var(--bg-color);
+            align-items: center; justify-content: center; flex-direction: column; padding: 20px;
         }
+        .denied-screen i { font-size: 70px; color: var(--danger-color); margin-bottom: 20px; }
 
-        .denied-screen i {
-            font-size: 70px;
-            color: var(--danger-color);
-            margin-bottom: 20px;
+        /* Penyesuaian Ekstra untuk Layar HP Super Kecil */
+        @media (max-width: 380px) {
+            .confirmation-card { padding: 30px 20px; }
+            .logo-area h1 { font-size: 24px; }
+            .icon-warning { font-size: 55px; }
+            h2 { font-size: 20px; }
+            p { font-size: 13px; }
         }
-
     </style>
 </head>
 <body>
@@ -222,24 +180,15 @@
 
     <script>
         function acceptAge() {
-            // Arahkan pengunjung ke target URL
             window.location.href = "../../../../../play";
         }
 
         function declineAge() {
-            // 1. Mencoba menutup tab/window secara otomatis
             window.close();
-            
-            // 2. Jika peramban menolak (karena aturan keamanan), 
-            // sembunyikan kotak konfirmasi dan tampilkan layar hitam "Akses Ditolak"
             document.getElementById('confirmCard').style.display = 'none';
             const deniedScreen = document.getElementById('deniedScreen');
             deniedScreen.style.display = 'flex';
-            
-            // Opsional: Mencoba melempar user ke blank page atau halaman belakang
-            setTimeout(() => {
-                window.location.replace("about:blank");
-            }, 3000);
+            setTimeout(() => { window.location.replace("about:blank"); }, 3000);
         }
     </script>
 </body>
