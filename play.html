@@ -38,6 +38,8 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Header Utama - Sticky Layer 1 */
@@ -112,6 +114,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 25px 20px;
+            flex: 1; /* Mendorong footer ke bawah */
         }
 
         /* Grid Video */
@@ -188,19 +191,17 @@
 
         /* ==========================================
            Sistem Paginasi Angka 
-           (Kecil, Responsif, Statis/Diam, Tidak Terpotong) 
            ========================================== */
         .pagination-container {
             grid-column: 1 / -1;
             display: flex;
-            justify-content: center; /* Mutlak di tengah */
+            justify-content: center;
             align-items: center;
-            flex-wrap: nowrap; /* Wajib 1 baris */
+            flex-wrap: nowrap;
             gap: 6px;
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
-            /* Fungsi scroll sengaja dihilangkan agar tombol diam */
         }
 
         .page-btn {
@@ -216,8 +217,8 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            white-space: nowrap; /* Teks tidak turun */
-            flex-shrink: 0; /* Mencegah elemen rusak */
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .page-btn:hover:not(:disabled) { background: var(--border-color); }
@@ -229,32 +230,14 @@
         .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .page-dots { color: var(--text-secondary); font-weight: 600; padding: 0 4px; flex-shrink: 0; }
 
-        /* Penyesuaian Ekstrem untuk HP agar muat 1 baris sempurna */
         @media (max-width: 500px) {
-            .pagination-container {
-                gap: 3px; /* Jarak dirapatkan */
-            }
-            .page-btn {
-                padding: 6px 8px; /* Padding sangat kecil */
-                font-size: 11px; /* Ukuran teks diperkecil */
-                border-radius: 6px;
-                gap: 4px;
-            }
-            .page-btn i {
-                font-size: 10px; /* Ikon juga disesuaikan */
-            }
-            .page-dots {
-                padding: 0 2px;
-                font-size: 12px;
-            }
+            .pagination-container { gap: 3px; }
+            .page-btn { padding: 6px 8px; font-size: 11px; border-radius: 6px; gap: 4px; }
+            .page-btn i { font-size: 10px; }
+            .page-dots { padding: 0 2px; font-size: 12px; }
         }
-        
-        /* Penyesuaian untuk HP layar sangat kecil (seperti iPhone SE) */
         @media (max-width: 360px) {
-            .page-btn {
-                padding: 5px 6px;
-                font-size: 10px;
-            }
+            .page-btn { padding: 5px 6px; font-size: 10px; }
         }
 
         /* Modal Player (Rasio Absolut 16:9) */
@@ -330,6 +313,59 @@
         }
         .adblock-box .refresh-btn:hover { background: #e6c200; transform: scale(1.05); }
 
+        /* ==========================================
+           Footer & Telegram CSS
+           ========================================== */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px 25px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .telegram-join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(157, 0, 255, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .telegram-join-btn i {
+            color: var(--accent-gold);
+            font-size: 22px;
+        }
+
+        .telegram-join-btn:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(157, 0, 255, 0.3);
+            border-color: var(--accent-purple);
+        }
+
+        .telegram-join-btn:hover i {
+            color: #fff;
+        }
+
+        .copyright-text {
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -367,6 +403,15 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <a href="https://t.me/+ma7zNXuq8tA4OWRl" target="_blank" class="telegram-join-btn">
+            <i class="fa-brands fa-telegram"></i> Gabung Komunitas Telegram
+        </a>
+        <div class="copyright-text">
+            &copy; <span id="currentYear"></span> Playhub Premium. All rights reserved.
+        </div>
+    </footer>
 
     <div class="modal" id="videoModal">
         <div class="modal-content">
@@ -429,7 +474,7 @@
         // ==========================================
         // 2. SISTEM DATA, PAGINASI, & STREAMING
         // ==========================================
-        const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/modora-official/ph/main/ph.txt';
+        const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/modora-official/playhub/main/ph.txt';
         
         const grid = document.getElementById('videoGrid');
         const modal = document.getElementById('videoModal');
@@ -639,6 +684,11 @@
         window.addEventListener('DOMContentLoaded', () => {
             detectAdBlocker();
             fetchVideos(false);
+
+            // ==========================================
+            // 3. SET TAHUN COPYRIGHT OTOMATIS
+            // ==========================================
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
     <script src="https://pl29654783.effectivecpmnetwork.com/84/43/a9/8443a9fda9b68700dcb25423dfceae29.js"></script>
