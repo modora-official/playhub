@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="https://playhub.web.id/ph.png">
+    
+    <title>Playhub Premium</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Variabel Warna Playhub */
+        :root {
+            --bg-color: #0a0a0e;
+            --card-bg: #121218;
+            --accent-purple: #9D00FF;
+            --accent-gold: #FFD700;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: #242433;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Utama */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            padding: 16px 20px;
+            background: rgba(10, 10, 14, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .header-logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .header-logo i { color: var(--accent-purple); font-size: 26px; }
+        .logo-play { color: var(--accent-gold); }
+        .logo-hub { color: var(--accent-purple); }
+
+        .header-back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .header-back-btn:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+        }
+
+        /* Wadah Tab */
+        .tabs-wrapper {
+            position: sticky;
+            top: 61px;
+            z-index: 55;
+            background: rgba(10, 10, 14, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.05); }
+        .tab-btn.active { 
+            background: rgba(157, 0, 255, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 25px 20px;
+            flex: 1;
+        }
+
+        /* Grid Video */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) { .video-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) {
+            .video-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .tab-btn { flex: 1; justify-content: center; font-size: 14px; padding: 10px; }
+            .tabs-wrapper { top: 58px; }
+        }
+
+        /* Kartu Video */
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+            display: block;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(157, 0, 255, 0.2);
+            border-color: var(--accent-purple);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background: #0f0f14;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-spinner {
+            position: absolute; width: 35px; height: 35px;
+            border: 3px solid rgba(157, 0, 255, 0.2);
+            border-top: 3px solid var(--accent-gold);
+            border-radius: 50%; animation: spin 1s linear infinite; z-index: 1;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .thumb-vid {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 2; opacity: 0; transition: opacity 0.5s ease;
+        }
+
+        .video-thumbnail::after {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0, 0, 0, 0.3); z-index: 3; transition: 0.3s;
+        }
+        .video-card:hover .video-thumbnail::after { background: rgba(0, 0, 0, 0.1); }
+
+        .play-icon {
+            font-size: 45px; color: rgba(255, 255, 255, 0.9);
+            z-index: 4; transition: 0.3s; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+        .video-card:hover .play-icon { 
+            color: var(--accent-gold); 
+            transform: scale(1.15); 
+            text-shadow: 0 4px 20px rgba(157, 0, 255, 0.8); 
+        }
+
+        .video-info {
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+        .video-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .video-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(255, 215, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        /* Paginasi */
+        .pagination-container {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 6px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .page-btn {
+            background: #1e1e2d;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .page-btn:hover:not(:disabled) { background: var(--border-color); }
+        .page-btn.active { 
+            background: var(--accent-purple); 
+            border-color: var(--accent-purple); 
+            color: #fff;
+        }
+        .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .page-dots { color: var(--text-secondary); font-weight: 600; padding: 0 4px; flex-shrink: 0; }
+
+        @media (max-width: 500px) {
+            .pagination-container { gap: 3px; }
+            .page-btn { padding: 6px 8px; font-size: 11px; border-radius: 6px; gap: 4px; }
+            .page-btn i { font-size: 10px; }
+            .page-dots { padding: 0 2px; font-size: 12px; }
+        }
+
+        /* ==========================================
+           Halaman Web Khusus Video (Watch View)
+           ========================================== */
+        #watchView {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .watch-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .watch-player-card {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .watch-video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .watch-video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .watch-details-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .watch-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .watch-title-group h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .watch-title-group p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .watch-actions-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .watch-btn {
+            background: #1e1e2d;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .watch-btn:hover:not(:disabled) {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            color: #fff;
+        }
+
+        .watch-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .watch-btn.gold-btn { background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.3); color: var(--accent-gold); }
+        .watch-btn.gold-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .section-heading {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-heading i { color: var(--accent-gold); }
+
+        /* Toast Notifikasi Salin URL */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(18, 18, 24, 0.95);
+            border: 1px solid var(--accent-gold);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast i { color: var(--accent-gold); }
+
+        /* Pesan Status */
+        .status-message {
+            grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-secondary);
+            font-size: 16px; display: flex; flex-direction: column; align-items: center; gap: 15px;
+        }
+        .status-message i { font-size: 35px; color: var(--accent-gold); }
+
+        /* Sistem Blokir Ekstrem Adblock */
+        .adblock-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 14, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 999999; display: none; align-items: center; justify-content: center;
+        }
+        .adblock-box {
+            background: var(--card-bg); padding: 40px 30px; border-radius: 16px;
+            border: 2px solid var(--accent-purple); text-align: center; max-width: 450px;
+            box-shadow: 0 20px 60px rgba(157, 0, 255, 0.3);
+        }
+        .adblock-box i { font-size: 60px; color: var(--accent-gold); margin-bottom: 20px; }
+        .adblock-box h2 { font-size: 22px; margin-bottom: 10px; color: #fff; }
+        .adblock-box p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+        .adblock-box .refresh-btn {
+            background: var(--accent-gold); color: #000; padding: 12px 30px; border: none;
+            border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.3s;
+        }
+        .adblock-box .refresh-btn:hover { background: #e6c200; transform: scale(1.05); }
+
+        /* Footer & Telegram */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px 25px;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .telegram-join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(157, 0, 255, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-primary);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .telegram-join-btn i {
+            color: var(--accent-gold);
+            font-size: 22px;
+        }
+
+        .telegram-join-btn:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(157, 0, 255, 0.3);
+        }
+
+        .telegram-join-btn:hover i { color: #fff; }
+
+        .copyright-text {
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sistem Blokir Adblock -->
+    <div class="adblock-overlay" id="adblockOverlay">
+        <div class="adblock-box">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2>Pemblokir Iklan Terdeteksi</h2>
+            <p>Untuk melanjutkan streaming video premium di Playhub secara gratis, mohon nonaktifkan atau jeda ekstensi Pemblokir Iklan (Adblocker) Anda pada browser ini, lalu muat ulang halaman.</p>
+            <button class="refresh-btn" onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifikasi -->
+    <div class="toast" id="toastMessage">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastText">Tautan berhasil disalin ke papan klip!</span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-logo" onclick="navigateToHome()">
+            <i class="fa-solid fa-play"></i> 
+            <span class="logo-text"><span class="logo-play">PLAY</span><span class="logo-hub">HUB</span></span>
+        </div>
+        <button class="header-back-btn" id="headerBackBtn" onclick="navigateToHome()">
+            <i class="fa-solid fa-arrow-left"></i> Beranda
+        </button>
+    </header>
+
+    <!-- Navigasi Tab (Hanya tampil di Beranda) -->
+    <div class="tabs-wrapper" id="tabsWrapper">
+        <button class="tab-btn active" id="tab-new" onclick="switchTab('new')">
+            <i class="fa-solid fa-bolt"></i> New
+        </button>
+        <button class="tab-btn" id="tab-rekomendasi" onclick="switchTab('rekomendasi')">
+            <i class="fa-solid fa-star"></i> Rekomendasi
+        </button>
+    </div>
+
+    <!-- Kontainer Halaman Beranda -->
+    <main class="container" id="homeView">
+        <div class="video-grid" id="videoGrid">
+            <div class="status-message">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <span>Memuat data server...</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Kontainer Halaman Khusus Video (Watch Page) -->
+    <main class="container" id="watchView">
+        <div class="watch-container">
+            <div class="watch-player-card">
+                <div class="watch-video-wrapper">
+                    <video id="mainVideoPlayer" controls controlsList="nodownload" playsinline></video>
+                </div>
+            </div>
+
+            <div class="watch-details-card">
+                <div class="watch-meta">
+                    <div class="watch-title-group">
+                        <h2 id="watchVideoTitle"><i class="fa-solid fa-circle-play"></i> Video Player</h2>
+                        <p id="watchVideoInfo">Kualitas HD &bull; Streaming Cepat</p>
+                    </div>
+                    <div class="watch-actions-bar">
+                        <button class="watch-btn gold-btn" onclick="copyCurrentVideoUrl()">
+                            <i class="fa-solid fa-share-nodes"></i> Bagikan
+                        </button>
+                        <button class="watch-btn" onclick="toggleFullscreen('portrait')">
+                            <i class="fa-solid fa-mobile-screen"></i> Potret
+                        </button>
+                        <button class="watch-btn" onclick="toggleFullscreen('landscape')">
+                            <i class="fa-solid fa-mobile-screen fa-rotate-270"></i> Lanskap
+                        </button>
+                    </div>
+                </div>
+
+                <div class="watch-actions-bar" style="border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <button class="watch-btn" id="watchPrevBtn" onclick="navigateWatchStep(-1)">
+                        <i class="fa-solid fa-backward-step"></i> Video Sebelumnya
+                    </button>
+                    <button class="watch-btn" id="watchNextBtn" onclick="navigateWatchStep(1)">
+                        Video Selanjutnya <i class="fa-solid fa-forward-step"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Rekomendasi Video Terkait di Bawah Player -->
+            <div class="section-heading">
+                <i class="fa-solid fa-fire"></i> Video Lainnya
+            </div>
+            <div class="video-grid" id="relatedVideoGrid"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <a href="https://t.me/+ma7zNXuq8tA4OWRl" target="_blank" class="telegram-join-btn">
+            <i class="fa-brands fa-telegram"></i> Gabung Komunitas Telegram
+        </a>
+        <div class="copyright-text">
+            &copy; <span id="currentYear"></span> Playhub Premium. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================
+        // 1. SISTEM DETEKSI ADBLOCK SUPER KETAT
+        // ==========================================
+        async function detectAdBlocker() {
+            let adBlockActive = false;
+            
+            const bait = document.createElement('div');
+            bait.innerHTML = '&nbsp;';
+            bait.className = 'adBanner ad-placement doubleclick ad-placeholder ad-box';
+            document.body.appendChild(bait);
+            
+            if (bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none' || bait.clientHeight === 0) {
+                adBlockActive = true;
+            }
+            bait.remove();
+
+            if (!adBlockActive) {
+                try {
+                    await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
+                        method: 'HEAD',
+                        mode: 'no-cors',
+                        cache: 'no-store'
+                    });
+                } catch (err) {
+                    adBlockActive = true;
+                }
+            }
+
+            if (adBlockActive) {
+                document.getElementById('adblockOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        // ==========================================
+        // 2. DATA SERVER & STATE MANAGEMENT
+        // ==========================================
+        const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/modora-official/playhub/main/ph.txt';
+        
+        const homeView = document.getElementById('homeView');
+        const watchView = document.getElementById('watchView');
+        const tabsWrapper = document.getElementById('tabsWrapper');
+        const headerBackBtn = document.getElementById('headerBackBtn');
+        const grid = document.getElementById('videoGrid');
+        const relatedGrid = document.getElementById('relatedVideoGrid');
+        const mainPlayer = document.getElementById('mainVideoPlayer');
+        const watchPrevBtn = document.getElementById('watchPrevBtn');
+        const watchNextBtn = document.getElementById('watchNextBtn');
+        
+        let allVideos = [];
+        let newLinks = [];
+        let rekomendasiLinks = [];
+        let currentDisplayLinks = []; 
+        let currentWatchIndex = -1;
+        
+        const ITEMS_PER_PAGE = 10;
+        let currentPageNew = 1; 
+        let currentPageRekomendasi = 1;
+        let activeTab = localStorage.getItem('playhub_active_tab') || 'new';
+
+        // Helper Encoding ID URL Ramah GitHub Pages
+        function encodeVideoId(url) {
+            const index = allVideos.indexOf(url);
+            if (index !== -1) return (index + 1).toString();
+            return btoa(unescape(encodeURIComponent(url))).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+        }
+
+        function findVideoByParam(param) {
+            if (!param) return null;
+            const parsedInt = parseInt(param);
+            if (!isNaN(parsedInt) && parsedInt >= 1 && parsedInt <= allVideos.length) {
+                return { url: allVideos[parsedInt - 1], index: parsedInt - 1 };
+            }
+            const foundIndex = allVideos.findIndex(link => encodeVideoId(link) === param);
+            if (foundIndex !== -1) {
+                return { url: allVideos[foundIndex], index: foundIndex };
+            }
+            return null;
+        }
+
+        // ==========================================
+        // 3. PENGAMBILAN DATA (FETCHING)
+        // ==========================================
+        async function fetchVideos(isBackgroundRefresh = false) {
+            if (!isBackgroundRefresh && allVideos.length === 0) {
+                grid.innerHTML = `<div class="status-message"><i class="fa-solid fa-circle-notch fa-spin"></i><span>Memuat data server...</span></div>`;
+            }
+            try {
+                const response = await fetch(GITHUB_RAW_URL + '?nocache=' + new Date().getTime());
+                if (!response.ok) throw new Error('Gagal memuat dari GitHub.');
+
+                const textData = await response.text();
+                const rawLinks = textData.split(',').map(link => link.trim()).filter(link => link.length > 0 && link.startsWith('http')).reverse();
+                allVideos = [...new Set(rawLinks)];
+                newLinks = [...allVideos];
+
+                if (rekomendasiLinks.length === 0) {
+                    let poolRekomendasi = newLinks.length > 20 ? newLinks.slice(20) : [...newLinks];
+                    rekomendasiLinks = poolRekomendasi.sort(() => Math.random() - 0.5);
+                }
+
+                handleRouting();
+
+            } catch (error) {
+                if (!isBackgroundRefresh) {
+                    grid.innerHTML = `<div class="status-message"><i class="fa-solid fa-triangle-exclamation"></i><span>Terjadi kesalahan: ${error.message}</span></div>`;
+                }
+            }
+        }
+
+        // ==========================================
+        // 4. SISTEM ROUTING HALAMAN GITHUB PAGES
+        // ==========================================
+        function handleRouting() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoParam = urlParams.get('v') || urlParams.get('id');
+
+            if (videoParam && allVideos.length > 0) {
+                const videoData = findVideoByParam(videoParam);
+                if (videoData) {
+                    showWatchPage(videoData.url, videoData.index);
+                    return;
+                }
+            }
+            showHomePage();
+        }
+
+        function navigateToHome() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('v');
+            url.searchParams.delete('id');
+            window.history.pushState({}, '', url.pathname);
+            showHomePage();
+        }
+
+        function openVideoPage(videoUrl) {
+            const videoId = encodeVideoId(videoUrl);
+            const url = new URL(window.location.href);
+            url.searchParams.set('v', videoId);
+            window.history.pushState({}, '', url.toString());
+            
+            const index = allVideos.indexOf(videoUrl);
+            showWatchPage(videoUrl, index);
+        }
+
+        function showHomePage() {
+            mainPlayer.pause();
+            mainPlayer.src = '';
+            document.title = 'Playhub Premium';
+            
+            watchView.style.display = 'none';
+            homeView.style.display = 'block';
+            tabsWrapper.style.display = 'flex';
+            headerBackBtn.style.display = 'none';
+
+            updateTabUI();
+            renderGrid();
+        }
+
+        function showWatchPage(videoUrl, globalIndex) {
+            currentWatchIndex = globalIndex;
+            homeView.style.display = 'none';
+            tabsWrapper.style.display = 'none';
+            headerBackBtn.style.display = 'inline-flex';
+            watchView.style.display = 'block';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const videoNum = (currentWatchIndex + 1);
+            document.title = `Nonton Video #${videoNum} - Playhub Premium`;
+            document.getElementById('watchVideoTitle').innerHTML = `<i class="fa-solid fa-circle-play"></i> Video #${videoNum}`;
+            document.getElementById('watchVideoInfo').innerHTML = `Playhub Premium Server &bull; Streaming Siap Ditonton`;
+
+            mainPlayer.src = videoUrl;
+            mainPlayer.play().catch(e => console.log('Autoplay ditahan oleh browser'));
+
+            watchPrevBtn.disabled = currentWatchIndex <= 0;
+            watchNextBtn.disabled = currentWatchIndex >= allVideos.length - 1;
+
+            renderRelatedVideos(videoUrl);
+        }
+
+        function navigateWatchStep(step) {
+            const targetIndex = currentWatchIndex + step;
+            if (targetIndex >= 0 && targetIndex < allVideos.length) {
+                openVideoPage(allVideos[targetIndex]);
+            }
+        }
+
+        // ==========================================
+        // 5. TABS & GRID RENDERING
+        // ==========================================
+        function switchTab(tabName) {
+            activeTab = tabName;
+            localStorage.setItem('playhub_active_tab', tabName); 
+            updateTabUI();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            renderGrid();
+        }
+
+        function updateTabUI() {
+            document.getElementById('tab-new').classList.toggle('active', activeTab === 'new');
+            document.getElementById('tab-rekomendasi').classList.toggle('active', activeTab === 'rekomendasi');
+        }
+
+        function renderGrid() {
+            let targetArray = activeTab === 'new' ? newLinks : rekomendasiLinks;
+            let currentPage = activeTab === 'new' ? currentPageNew : currentPageRekomendasi;
+            
+            let startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            let endIndex = startIndex + ITEMS_PER_PAGE;
+            currentDisplayLinks = targetArray.slice(startIndex, endIndex);
+
+            grid.innerHTML = ''; 
+
+            if (currentDisplayLinks.length === 0) {
+                grid.innerHTML = `<div class="status-message"><i class="fa-solid fa-folder-open"></i><span>Tidak ada link video.</span></div>`;
+                return;
+            }
+
+            currentDisplayLinks.forEach((link) => {
+                const globalIndex = allVideos.indexOf(link);
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => openVideoPage(link);
+
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <div class="loader-spinner" id="spinner-${globalIndex}"></div>
+                        <video class="thumb-vid" src="${link}#t=0.1" preload="metadata" muted playsinline 
+                            onloadstart="this.style.opacity='0'" 
+                            onloadeddata="this.style.opacity='1'; const sp = document.getElementById('spinner-${globalIndex}'); if(sp) sp.style.display='none';">
+                        </video>
+                        <i class="fa-solid fa-circle-play play-icon"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-title">Video #${globalIndex + 1}</span>
+                        <span class="video-badge">HD</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            renderPagination(targetArray.length, currentPage);
+        }
+
+        function renderRelatedVideos(currentLink) {
+            relatedGrid.innerHTML = '';
+            const related = allVideos.filter(v => v !== currentLink).slice(0, 8);
+            
+            related.forEach((link) => {
+                const globalIndex = allVideos.indexOf(link);
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => openVideoPage(link);
+
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <div class="loader-spinner" id="rel-spinner-${globalIndex}"></div>
+                        <video class="thumb-vid" src="${link}#t=0.1" preload="metadata" muted playsinline 
+                            onloadstart="this.style.opacity='0'" 
+                            onloadeddata="this.style.opacity='1'; const sp = document.getElementById('rel-spinner-${globalIndex}'); if(sp) sp.style.display='none';">
+                        </video>
+                        <i class="fa-solid fa-circle-play play-icon"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="video-title">Video #${globalIndex + 1}</span>
+                        <span class="video-badge">HD</span>
+                    </div>
+                `;
+                relatedGrid.appendChild(card);
+            });
+        }
+
+        function renderPagination(totalItems, currentPage) {
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            if (totalPages <= 1) return;
+
+            const pagContainer = document.createElement('div');
+            pagContainer.className = 'pagination-container';
+
+            pagContainer.innerHTML += `
+                <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+                </button>
+                <span class="page-dots">...</span>
+            `;
+
+            let startPage = currentPage;
+            let endPage = Math.min(startPage + 2, totalPages);
+            
+            if (endPage - startPage < 2 && startPage > 1) {
+                startPage = Math.max(1, endPage - 2);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                pagContainer.innerHTML += `
+                    <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>
+                `;
+            }
+
+            pagContainer.innerHTML += `
+                <span class="page-dots">...</span>
+                <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Selanjutnya <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            `;
+
+            grid.appendChild(pagContainer);
+        }
+
+        async function changePage(newPage) {
+            let targetArray = activeTab === 'new' ? newLinks : rekomendasiLinks;
+            const totalPages = Math.ceil(targetArray.length / ITEMS_PER_PAGE);
+            
+            if (newPage < 1 || newPage > totalPages) return;
+
+            await fetchVideos(true);
+
+            if (activeTab === 'new') {
+                currentPageNew = newPage;
+            } else {
+                currentPageRekomendasi = newPage;
+            }
+
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            renderGrid();
+        }
+
+        // ==========================================
+        // 6. KONTROL ORIENTASI & SHARE URL
+        // ==========================================
+        async function toggleFullscreen(orientation) {
+            const elem = document.getElementById('mainVideoPlayer'); 
+            if (elem.requestFullscreen) await elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
+
+            try {
+                if (orientation === 'landscape' && screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('landscape');
+                } else if (orientation === 'portrait' && screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('portrait');
+                }
+            } catch (error) {
+                console.log('Perangkat tidak mendukung penguncian orientasi layar secara paksa.');
+            }
+        }
+
+        function copyCurrentVideoUrl() {
+            const currentUrl = window.location.href;
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                showToast('Tautan video berhasil disalin!');
+            }).catch(() => {
+                const tempInput = document.createElement('input');
+                tempInput.value = currentUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                showToast('Tautan video berhasil disalin!');
+            });
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toastMessage');
+            document.getElementById('toastText').textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+
+        // Handle Browser Back / Forward Button
+        window.addEventListener('popstate', () => {
+            handleRouting();
+        });
+
+        // Inisialisasi Aplikasi
+        window.addEventListener('DOMContentLoaded', () => {
+            detectAdBlocker();
+            fetchVideos(false);
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
