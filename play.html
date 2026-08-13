@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <script src="https://pl30215852.effectivecpmnetwork.com/82/11/0c/82110c6c217154ddcf63a60b08967489.js"></script>
+    <script src="https://pl29654782.effectivecpmnetwork.com/4c/c3/85/4cc385c610a1fade384f0b25358d3b01.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Playhub Premium - Platform streaming video eksklusif dengan kualitas terbaik.">
+    <meta name="theme-color" content="#0a0a0e">
+    <meta property="og:title" content="Playhub Premium">
+    <meta property="og:description" content="Tonton video premium secara gratis di Playhub.">
+    <meta property="og:image" content="https://playhub.web.id/ph.png">
     
     <link rel="icon" type="image/png" href="https://playhub.web.id/ph.png">
-    
     <title>Playhub Premium</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Variabel Warna Playhub (Ungu & Gold) */
         :root {
             --bg-color: #0a0a0e;
             --card-bg: #121218;
-            --accent-purple: #9D00FF; /* Warna Ungu Logo */
-            --accent-gold: #FFD700;   /* Warna Emas Logo */
+            --accent-purple: #9D00FF;
+            --accent-gold: #FFD700;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --border-color: #242433;
@@ -42,7 +44,6 @@
             flex-direction: column;
         }
 
-        /* Header Utama - Sticky Layer 1 */
         header {
             position: sticky;
             top: 0;
@@ -66,12 +67,10 @@
             letter-spacing: 0.5px;
         }
 
-        /* Warna Ikon dan Teks Logo */
         header h1 i { color: var(--accent-purple); font-size: 26px; }
         .logo-play { color: var(--accent-gold); }
         .logo-hub { color: var(--accent-purple); }
 
-        /* Wadah Tab - Sticky Layer 2 */
         .tabs-wrapper {
             position: sticky;
             top: 61px;
@@ -105,8 +104,8 @@
 
         .tab-btn:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.05); }
         .tab-btn.active { 
-            background: rgba(157, 0, 255, 0.15); /* Transparansi Ungu */
-            color: var(--accent-gold); /* Teks Emas saat aktif */
+            background: rgba(157, 0, 255, 0.15); 
+            color: var(--accent-gold); 
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
@@ -114,10 +113,9 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 25px 20px;
-            flex: 1; /* Mendorong footer ke bawah */
+            flex: 1;
         }
 
-        /* Grid Video */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -131,7 +129,6 @@
             .tabs-wrapper { top: 58px; }
         }
 
-        /* Kartu Video */
         .video-card {
             background-color: var(--card-bg);
             border-radius: 14px;
@@ -159,7 +156,6 @@
             justify-content: center;
         }
 
-        /* Animasi Loading Kombinasi Emas & Ungu */
         .loader-spinner {
             position: absolute; width: 35px; height: 35px;
             border: 3px solid rgba(157, 0, 255, 0.2);
@@ -189,9 +185,6 @@
             text-shadow: 0 4px 20px rgba(157, 0, 255, 0.8); 
         }
 
-        /* ==========================================
-           Sistem Paginasi Angka 
-           ========================================== */
         .pagination-container {
             grid-column: 1 / -1;
             display: flex;
@@ -236,11 +229,7 @@
             .page-btn i { font-size: 10px; }
             .page-dots { padding: 0 2px; font-size: 12px; }
         }
-        @media (max-width: 360px) {
-            .page-btn { padding: 5px 6px; font-size: 10px; }
-        }
 
-        /* Modal Player (Rasio Absolut 16:9) */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -278,7 +267,7 @@
             padding: 12px; background: var(--card-bg); display: flex; flex-direction: column;
             gap: 12px; border-top: 1px solid var(--border-color);
         }
-        .nav-buttons, .fs-buttons { display: flex; gap: 10px; }
+        .control-group { display: flex; gap: 10px; }
         .control-btn {
             flex: 1; padding: 10px; border-radius: 8px; border: none; background: #1e1e2d;
             color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer;
@@ -286,6 +275,8 @@
         }
         .control-btn:hover { background: var(--accent-purple); color: #fff; }
         .control-btn:disabled { background: #0f0f14; color: #474759; cursor: not-allowed; }
+        .share-btn { background: rgba(255, 215, 0, 0.1); color: var(--accent-gold); border: 1px solid rgba(255, 215, 0, 0.3); }
+        .share-btn:hover { background: var(--accent-gold); color: #000; }
 
         .status-message {
             grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-secondary);
@@ -293,7 +284,6 @@
         }
         .status-message i { font-size: 35px; color: var(--accent-gold); }
 
-        /* Sistem Blokir Ekstrem Adblock */
         .adblock-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 10, 14, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -313,9 +303,6 @@
         }
         .adblock-box .refresh-btn:hover { background: #e6c200; transform: scale(1.05); }
 
-        /* ==========================================
-           Footer & Telegram CSS
-           ========================================== */
         footer {
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
@@ -343,29 +330,14 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .telegram-join-btn i {
-            color: var(--accent-gold);
-            font-size: 22px;
-        }
-
+        .telegram-join-btn i { color: var(--accent-gold); font-size: 22px; }
         .telegram-join-btn:hover {
-            background: var(--accent-purple);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(157, 0, 255, 0.3);
-            border-color: var(--accent-purple);
+            background: var(--accent-purple); color: #fff; transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(157, 0, 255, 0.3); border-color: var(--accent-purple);
         }
+        .telegram-join-btn:hover i { color: #fff; }
 
-        .telegram-join-btn:hover i {
-            color: #fff;
-        }
-
-        .copyright-text {
-            color: var(--text-secondary);
-            font-size: 13.5px;
-            text-align: center;
-        }
-
+        .copyright-text { color: var(--text-secondary); font-size: 13.5px; text-align: center; }
     </style>
 </head>
 <body>
@@ -424,11 +396,12 @@
             </div>
 
             <div class="modal-controls">
-                <div class="nav-buttons">
-                    <button class="control-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i> Sebelum</button>
-                    <button class="control-btn" id="nextBtn">Selanjutnya <i class="fa-solid fa-forward-step"></i></button>
+                <div class="control-group">
+                    <button class="control-btn" id="prevBtn"><i class="fa-solid fa-backward-step"></i> Prev</button>
+                    <button class="control-btn" id="nextBtn">Next <i class="fa-solid fa-forward-step"></i></button>
+                    <button class="control-btn share-btn" id="shareBtn" onclick="copyShareLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
                 </div>
-                <div class="fs-buttons">
+                <div class="control-group">
                     <button class="control-btn" onclick="toggleFullscreen('portrait')"><i class="fa-solid fa-mobile-screen"></i> Potret</button>
                     <button class="control-btn" onclick="toggleFullscreen('landscape')"><i class="fa-solid fa-mobile-screen fa-rotate-270"></i> Lanskap</button>
                 </div>
@@ -437,12 +410,9 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. SISTEM DETEKSI ADBLOCK SUPER KETAT
-        // ==========================================
+        // 1. SISTEM DETEKSI ADBLOCK 
         async function detectAdBlocker() {
             let adBlockActive = false;
-            
             const bait = document.createElement('div');
             bait.innerHTML = '&nbsp;';
             bait.className = 'adBanner ad-placement doubleclick ad-placeholder ad-box';
@@ -456,13 +426,9 @@
             if (!adBlockActive) {
                 try {
                     await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', {
-                        method: 'HEAD',
-                        mode: 'no-cors',
-                        cache: 'no-store'
+                        method: 'HEAD', mode: 'no-cors', cache: 'no-store'
                     });
-                } catch (err) {
-                    adBlockActive = true;
-                }
+                } catch (err) { adBlockActive = true; }
             }
 
             if (adBlockActive) {
@@ -471,11 +437,8 @@
             }
         }
 
-        // ==========================================
-        // 2. SISTEM DATA, PAGINASI, & STREAMING
-        // ==========================================
+        // 2. SISTEM DATA, PAGINASI, & URL ROUTING
         const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/modora-official/playhub/main/ph.txt';
-        
         const grid = document.getElementById('videoGrid');
         const modal = document.getElementById('videoModal');
         const player = document.getElementById('videoPlayer');
@@ -486,11 +449,11 @@
         let rekomendasiLinks = [];
         let currentDisplayLinks = []; 
         let currentVideoIndex = 0;
+        let isIsolatedView = false; // Mode jika link video direct dibuka
         
         const ITEMS_PER_PAGE = 10;
         let currentPageNew = 1; 
         let currentPageRekomendasi = 1;
-
         let activeTab = localStorage.getItem('playhub_active_tab') || 'new';
 
         async function fetchVideos(isBackgroundRefresh = false) {
@@ -511,12 +474,45 @@
                 }
 
                 updateTabUI(); 
-                renderGrid();  
+                renderGrid(); 
+                
+                // Cek jika halaman dimuat dengan link video langsung (?v=...)
+                checkUrlForDirectVideo();
 
             } catch (error) {
                 if (!isBackgroundRefresh) {
                     grid.innerHTML = `<div class="status-message"><i class="fa-solid fa-triangle-exclamation"></i><span>Terjadi kesalahan: ${error.message}</span></div>`;
                 }
+            }
+        }
+
+        function checkUrlForDirectVideo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const v = urlParams.get('v');
+            if (v) {
+                try {
+                    const decodedUrl = atob(v);
+                    let targetArray = activeTab === 'new' ? newLinks : rekomendasiLinks;
+                    let foundIndex = targetArray.indexOf(decodedUrl);
+
+                    if (foundIndex !== -1) {
+                        const targetPage = Math.ceil((foundIndex + 1) / ITEMS_PER_PAGE);
+                        if (targetPage !== (activeTab === 'new' ? currentPageNew : currentPageRekomendasi)) {
+                            changePage(targetPage).then(() => {
+                                const relIndex = currentDisplayLinks.indexOf(decodedUrl);
+                                if(relIndex !== -1) openModal(relIndex, false);
+                            });
+                        } else {
+                            const relIndex = currentDisplayLinks.indexOf(decodedUrl);
+                            if(relIndex !== -1) openModal(relIndex, false);
+                        }
+                    } else {
+                        // Jika video tidak ada di halaman ini, buat mode terisolasi agar tetap bisa memutar
+                        isIsolatedView = true;
+                        currentDisplayLinks = [decodedUrl];
+                        openModal(0, false);
+                    }
+                } catch (e) { console.error("URL Parameter Tidak Valid"); }
             }
         }
 
@@ -551,7 +547,7 @@
             currentDisplayLinks.forEach((link, index) => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                card.onclick = () => openModal(index);
+                card.onclick = () => openModal(index, true);
 
                 card.innerHTML = `
                     <div class="video-thumbnail">
@@ -576,7 +572,6 @@
             const pagContainer = document.createElement('div');
             pagContainer.className = 'pagination-container';
 
-            // Tombol Sebelumnya
             pagContainer.innerHTML += `
                 <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
                     <i class="fa-solid fa-chevron-left"></i> Sebelumnya
@@ -586,72 +581,71 @@
 
             let startPage = currentPage;
             let endPage = Math.min(startPage + 2, totalPages);
-            
-            if (endPage - startPage < 2 && startPage > 1) {
-                startPage = Math.max(1, endPage - 2);
-            }
+            if (endPage - startPage < 2 && startPage > 1) startPage = Math.max(1, endPage - 2);
 
             for (let i = startPage; i <= endPage; i++) {
-                pagContainer.innerHTML += `
-                    <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>
-                `;
+                pagContainer.innerHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
             }
 
-            // Tombol Selanjutnya
             pagContainer.innerHTML += `
                 <span class="page-dots">...</span>
                 <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
                     Selanjutnya <i class="fa-solid fa-chevron-right"></i>
                 </button>
             `;
-
             grid.appendChild(pagContainer);
         }
 
         async function changePage(newPage) {
             let targetArray = activeTab === 'new' ? newLinks : rekomendasiLinks;
             const totalPages = Math.ceil(targetArray.length / ITEMS_PER_PAGE);
-            
             if (newPage < 1 || newPage > totalPages) return;
-
             await fetchVideos(true);
-
-            if (activeTab === 'new') {
-                currentPageNew = newPage;
-            } else {
-                currentPageRekomendasi = newPage;
-            }
-
+            if (activeTab === 'new') currentPageNew = newPage;
+            else currentPageRekomendasi = newPage;
             window.scrollTo({top: 0, behavior: 'smooth'});
             renderGrid();
         }
 
-        // Kontrol Modal & Pemutar Video
-        function openModal(index) {
+        // 3. KONTROL MODAL & HALAMAN MASING-MASING
+        function openModal(index, updateUrl = true) {
             currentVideoIndex = index;
-            updateModalPlayer();
             modal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
+            updateModalPlayer(updateUrl);
         }
 
-        function updateModalPlayer() {
-            player.src = currentDisplayLinks[currentVideoIndex];
+        function updateModalPlayer(updateUrl = true) {
+            const currentUrl = currentDisplayLinks[currentVideoIndex];
+            player.src = currentUrl;
             player.play().catch(e => console.log('Autoplay ditahan peramban'));
-            prevBtn.disabled = currentVideoIndex === 0;
-            nextBtn.disabled = currentVideoIndex === currentDisplayLinks.length - 1;
+            
+            if (isIsolatedView) {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+            } else {
+                prevBtn.disabled = currentVideoIndex === 0;
+                nextBtn.disabled = currentVideoIndex === currentDisplayLinks.length - 1;
+            }
+
+            // Menerapkan "Halaman web masing-masing" menggunakan Update URL secara dinamis
+            if (updateUrl) {
+                const encodedUrl = btoa(currentUrl);
+                window.history.replaceState(null, '', '?v=' + encodedUrl);
+            }
         }
 
         prevBtn.addEventListener('click', () => {
             if (currentVideoIndex > 0) {
                 currentVideoIndex--;
-                updateModalPlayer();
+                updateModalPlayer(true);
             }
         });
 
         nextBtn.addEventListener('click', () => {
             if (currentVideoIndex < currentDisplayLinks.length - 1) {
                 currentVideoIndex++;
-                updateModalPlayer();
+                updateModalPlayer(true);
             }
         });
 
@@ -663,7 +657,31 @@
             if (document.fullscreenElement) {
                 document.exitFullscreen().catch(err => console.log(err));
             }
+            // Kembalikan URL ke halaman utama
+            window.history.replaceState(null, '', window.location.pathname);
+            
+            // Render ulang jika pengguna masuk langsung dari direct link mode terisolasi
+            if (isIsolatedView) {
+                isIsolatedView = false;
+                renderGrid();
+            }
         });
+
+        function copyShareLink() {
+            const shareUrl = window.location.href;
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                const btn = document.getElementById('shareBtn');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin!';
+                btn.style.background = 'var(--accent-purple)';
+                btn.style.color = '#ffffff';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        }
 
         async function toggleFullscreen(orientation) {
             const elem = document.getElementById('videoPlayer'); 
@@ -676,21 +694,15 @@
                 } else if (orientation === 'portrait' && screen.orientation && screen.orientation.lock) {
                     await screen.orientation.lock('portrait');
                 }
-            } catch (error) {
-                console.log('Perangkat tidak mendukung penguncian orientasi layar secara paksa.');
-            }
+            } catch (error) { console.log('Perangkat tidak mendukung penguncian orientasi layar.'); }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             detectAdBlocker();
             fetchVideos(false);
-
-            // ==========================================
-            // 3. SET TAHUN COPYRIGHT OTOMATIS
-            // ==========================================
             document.getElementById('currentYear').textContent = new Date().getFullYear();
         });
     </script>
-    <script src="https://pl30215853.effectivecpmnetwork.com/85/da/3a/85da3a7dc5c309c3ea565dfd0f975e75.js"></script>
+    <script src="https://pl29654783.effectivecpmnetwork.com/84/43/a9/8443a9fda9b68700dcb25423dfceae29.js"></script>
 </body>
 </html>
